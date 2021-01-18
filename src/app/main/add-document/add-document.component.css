@@ -1,0 +1,23 @@
+label {
+    font-weight: 500;
+}
+
+button {
+    font-weight: 600;
+}
+
+input[type="file"] {
+    overflow: hidden;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+input.ng-invalid.ng-touched {
+    border-left: 3px solid red;
+}
+
+select.ng-invalid.ng-touched {
+    border-left: 3px solid red;
+}

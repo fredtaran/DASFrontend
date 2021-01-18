@@ -1,0 +1,24 @@
+<div class="container">
+    <form [formGroup]="authForm" (ngSubmit)="login()" class="col-md-5 offset-md-3 border border-light p-5">
+
+        <div *ngIf="errMsg" class="alert alert-danger">
+            <span>{{ errMsg }}</span>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" formControlName="username" id="username" class="form-control" autocomplete="off">
+            <cite class="errorMsg" *ngIf="!authForm.controls['username'].valid && (authForm.controls['username']?.touched || required_flag)">Username is required.</cite>
+        </div>
+    
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" id="password" class="form-control">
+            <cite class="errorMsg" *ngIf="!authForm.controls['password'].valid && (authForm.controls['password']?.touched || required_flag)">Password is required.</cite>
+        </div>
+    
+        <button type="submit" class="btn btn-primary mr-2">Login</button>
+        <button type="reset" class="btn btn-warning">Cancel</button>
+    
+    </form>
+</div>

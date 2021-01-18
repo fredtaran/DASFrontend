@@ -1,0 +1,63 @@
+<div class="container">
+    <form [formGroup]="addForm" class="col-md-12 mt-3" enctype="multipart/form-data" (ngSubmit)="save()">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="document_no">Document No</label>
+                <div class="input-group">
+                    <input type="text" id="document_no" class="form-control" autocomplete="off" formControlName="document_no">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon1">
+                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group col-md-6">
+                <label for="barcode">Barcode</label>
+                <input type="text" id="barcode" class="form-control" autocomplete="off" formControlName="barcode">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input type="text" id="title" class="form-control" autocomplete="off" formControlName="title">
+            </div>
+        
+            <div class="form-group col-md-6">
+                <label for="date_completed">Date completed</label>
+                <input type="date" id="date_completed" class="form-control" autocomplete="off" formControlName="date_completed">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="category">Category</label>
+                <select id="category" class="form-control" formControlName="category">
+                    <option value="">--- Select ---</option>
+                    <option *ngFor="let category of categories" value="{{ category['id'] }}">{{ category['category_name'] }}</option>
+                </select>
+            </div>
+        
+            <div class="form-group col-md-4">
+                <label for="type">Type</label>
+                <select id="type" class="form-control" formControlName="type">
+                    <option value="">--- Select ---</option>
+                    <option value="1">Confidential</option>
+                    <option value="0">Nonconfidential</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="attachment">Attachment</label>
+                <input type="file" id="attachment" class="form-control" autocomplete="off" (change)="onFileChange($event)">
+            </div>
+
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary mr-2" [disabled]="!addForm.valid">Submit</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
