@@ -18,6 +18,10 @@ input.ng-invalid.ng-touched {
     border-left: 3px solid red;
 }
 
+.bError {
+    border-left: 3px solid red;
+}
+
 select.ng-invalid.ng-touched {
     border-left: 3px solid red;
 }

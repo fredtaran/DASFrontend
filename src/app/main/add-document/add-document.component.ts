@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-document',
@@ -14,26 +14,26 @@ export class AddDocumentComponent implements OnInit {
 
   // icons
   icons = {
-    'faPlusCircle': faPlusCircle 
+    'faExclamationTriangle': faExclamationTriangle 
   }
 
-  categories = [];
-
-  // FormGroup
   addForm = new FormGroup({
-    document_no: new FormControl('', Validators.required),
-    barcode: new FormControl('', Validators.required),
-    title: new FormControl('', Validators.required),
-    date_completed: new FormControl('', Validators.required),
-    category: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required)
-  })
+    'document_no': new FormControl('', Validators.required),
+    'barcode': new FormControl('', Validators.required),
+    'title': new FormControl('', Validators.required),
+    'date_completed': new FormControl('', Validators.required),
+    'category': new FormControl('', Validators.required),
+    'type': new FormControl('', Validators.required),
+    'attachment': new FormControl('', Validators.required),
+  });
+
+  has_attachment = false;
+  categories = [];
 
   constructor(
     private apiService: ApiService,
     private cookieService: CookieService,
-    private router: Router,
-    private cd: ChangeDetectorRef
+    private router: Router
   ) { } // constructor End
 
   ngOnInit() {
@@ -52,26 +52,33 @@ export class AddDocumentComponent implements OnInit {
     ); // getCategories API call end
   } // ngOnInit End
 
-  // Change file attachment
   onFileChange(event: any) {
-    let reader = new FileReader();
+    this.addForm.patchValue({
+      'attachment': event.target.files[0]
+    })
+  }
 
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
+  saveDocument() {
+    if(this.addForm.valid) {
+      const fd = new FormData();
+      fd.append('document_no', this.addForm.get('document_no')?.value)
+      fd.append('barcode', this.addForm.get('barcode')?.value)
+      fd.append('title', this.addForm.get('title')?.value)
+      fd.append('date_completed', this.addForm.get('date_completed')?.value)
+      fd.append('category', this.addForm.get('category')?.value)
+      fd.append('type', this.addForm.get('type')?.value)
+      fd.append('attachment', this.addForm.get('attachment')?.value)
 
-      reader.onload = () => {
-        this.addForm.patchValue({
-          attachment: reader.result
-        });
-
-        this.cd.markForCheck();
-      }
+      this.apiService.saveDocument(fd).subscribe(
+        data => {
+          
+        },
+        error => {
+          console.log(error.error.non_field_errors[0]);
+        }
+      )
+    } else {
+      this.has_attachment = true;
     }
   }
-
-  save() {
-    console.log(this.addForm.valid);
-  }
-
 }

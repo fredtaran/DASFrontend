@@ -21,7 +21,15 @@ export class ApiService {
   private getAuthHeaders() {
     let token = this.cookieService.get('my-token');
     return new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;',
+      Authorization: `Token ${token}`
+    })
+  }
+
+  // Header with token
+  private authHeaderFileUpload() {
+    let token = this.cookieService.get('my-token');
+    return new HttpHeaders({
       Authorization: `Token ${token}`
     })
   }
@@ -34,6 +42,11 @@ export class ApiService {
 
   // Get categories
   getCategories() {
-    return this.httpClient.get<any>(`${this.base_url}api/category`, { headers: this.getAuthHeaders() })
+    return this.httpClient.get<any>(`${this.base_url}api/category/`, { headers: this.getAuthHeaders() })
+  }
+
+  // Save document
+  saveDocument(docDetails: any) {
+    return this.httpClient.post<any>(`${this.base_url}api/document/`, docDetails, { headers: this.authHeaderFileUpload() })
   }
 }

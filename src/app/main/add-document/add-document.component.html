@@ -1,13 +1,13 @@
 <div class="container">
-    <form [formGroup]="addForm" class="col-md-12 mt-3" enctype="multipart/form-data" (ngSubmit)="save()">
+    <form [formGroup]="addForm" class="col-md-12 mt-3" enctype="multipart/form-data" (ngSubmit)="saveDocument()">
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="document_no">Document No</label>
                 <div class="input-group">
                     <input type="text" id="document_no" class="form-control" autocomplete="off" formControlName="document_no">
-                    <div class="input-group-append">
+                    <div class="input-group-append" *ngIf="addForm.controls['document_no'].invalid && addForm.controls['document_no']?.touched">
                         <span class="input-group-text" id="basic-addon1">
-                            
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
                         </span>
                     </div>
                 </div>
@@ -15,47 +15,89 @@
         
             <div class="form-group col-md-6">
                 <label for="barcode">Barcode</label>
-                <input type="text" id="barcode" class="form-control" autocomplete="off" formControlName="barcode">
+                <div class="input-group">
+                    <input type="text" id="barcode" class="form-control" autocomplete="off" formControlName="barcode">
+                    <div class="input-group-append" *ngIf="addForm.controls['barcode'].invalid && addForm.controls['barcode']?.touched">
+                        <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="title">Title</label>
-                <input type="text" id="title" class="form-control" autocomplete="off" formControlName="title">
+                <div class="input-group">
+                    <input type="text" id="title" class="form-control" autocomplete="off" formControlName="title">
+                    <div class="input-group-append" *ngIf="addForm.controls['title'].invalid && addForm.controls['title']?.touched">
+                        <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
         
             <div class="form-group col-md-6">
                 <label for="date_completed">Date completed</label>
-                <input type="date" id="date_completed" class="form-control" autocomplete="off" formControlName="date_completed">
+                <div class="input-group">
+                    <input type="date" id="date_completed" class="form-control" formControlName="date_completed">
+                    <div class="input-group-append" *ngIf="addForm.controls['date_completed'].invalid && addForm.controls['date_completed']?.touched">
+                        <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="category">Category</label>
-                <select id="category" class="form-control" formControlName="category">
-                    <option value="">--- Select ---</option>
-                    <option *ngFor="let category of categories" value="{{ category['id'] }}">{{ category['category_name'] }}</option>
-                </select>
+                <div class="input-group">
+                    <select id="category" class="form-control" formControlName="category">
+                        <option value="">--- Select ---</option>
+                        <option *ngFor="let category of categories" value="{{ category['id'] }}">{{ category['category_name'] }}</option>
+                    </select>
+                    <div class="input-group-append" *ngIf="addForm.controls['category'].invalid && addForm.controls['category']?.touched">
+                        <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
         
             <div class="form-group col-md-4">
                 <label for="type">Type</label>
-                <select id="type" class="form-control" formControlName="type">
-                    <option value="">--- Select ---</option>
-                    <option value="1">Confidential</option>
-                    <option value="0">Nonconfidential</option>
-                </select>
+                <div class="input-group">
+                    <select id="type" class="form-control" formControlName="type">
+                        <option value="">--- Select ---</option>
+                        <option value="1">Confidential</option>
+                        <option value="0">Not confidential</option>
+                    </select>
+                    <div class="input-group-append" *ngIf="addForm.controls['type'].invalid && addForm.controls['type']?.touched">
+                        <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group col-md-4">
                 <label for="attachment">Attachment</label>
-                <input type="file" id="attachment" class="form-control" autocomplete="off" (change)="onFileChange($event)">
+                <div class="input-group">
+                    <input type="file" id="attachment" class="form-control" (change)="onFileChange($event)" [class.bError]="has_attachment">
+                    <div class="input-group-append" *ngIf="has_attachment">
+                        <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="icons.faExclamationTriangle" style="color: red"></fa-icon>
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-primary mr-2" [disabled]="!addForm.valid">Submit</button>
+                <button type="submit" class="btn btn-primary mr-2" [disabled]="addForm.invalid">Submit</button>
                 <button type="reset" class="btn btn-warning">Reset</button>
             </div>
         </div>
