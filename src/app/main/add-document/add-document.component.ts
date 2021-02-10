@@ -28,7 +28,9 @@ export class AddDocumentComponent implements OnInit {
   });
 
   has_attachment = false;
+  is_unique = false;
   categories = [];
+  errMsg = "";
 
   constructor(
     private apiService: ApiService,
@@ -71,10 +73,12 @@ export class AddDocumentComponent implements OnInit {
 
       this.apiService.saveDocument(fd).subscribe(
         data => {
-          
+          this.router.navigate(['/dashboard']);
         },
         error => {
-          console.log(error.error.non_field_errors[0]);
+          // console.log(error.error.non_field_errors[0]);
+          this.is_unique = true;
+          this.errMsg = "Document with document no: " + this.addForm.get('document_no')?.value + " and barcode: " + this.addForm.get('barcode')?.value + " already exists.";
         }
       )
     } else {

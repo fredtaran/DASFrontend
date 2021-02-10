@@ -1,15 +1,15 @@
+// Module
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthModule } from './auth/auth.module';
 import { MainModule } from './main/main.module';
 import { Routes, RouterModule } from '@angular/router';
 
+// Component
 import { AppComponent } from './app.component';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Routes
 const routes: Routes = [];
@@ -31,6 +31,6 @@ const routes: Routes = [];
     RouterModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

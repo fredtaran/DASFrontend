@@ -47,6 +47,21 @@ export class ApiService {
 
   // Save document
   saveDocument(docDetails: any) {
-    return this.httpClient.post<any>(`${this.base_url}api/document/`, docDetails, { headers: this.authHeaderFileUpload() })
+    return this.httpClient.post<any>(`${this.base_url}api/add_document/`, docDetails, { headers: this.authHeaderFileUpload() })
+  }
+
+  // Get documents
+  getDocuments() {
+    return this.httpClient.get<any>(`${this.base_url}api/document/`, { headers: this.getAuthHeaders() });
+  }
+
+  // Delete document
+  deleteDocument(id: number) {
+    return this.httpClient.delete<any>(`${this.base_url}api/document/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  // Get specific document
+  getDocument(id: number, document_no: any) {
+    return this.httpClient.get<any>(`${this.base_url}api/document/${id}/`, { headers: this.getAuthHeaders() });
   }
 }

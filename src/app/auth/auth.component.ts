@@ -45,6 +45,7 @@ export class AuthComponent implements OnInit {
       },
       error => {
         this.errMsg = "Incorrect username/password.";
+        this.authForm.controls['password'].setValue('');
       })
     } else {
       this.required_flag = true;
