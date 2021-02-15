@@ -4,6 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/api.service';
+import { isEmptyObject } from 'jquery';
+import { isNull } from '@angular/compiler/src/output/output_ast';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-document',
@@ -69,11 +72,11 @@ export class EditDocumentComponent implements OnInit {
         this.updateForm.controls['barcode']?.setValue(document['barcode']);
         this.updateForm.controls['title']?.setValue(document['title']);
         this.updateForm.controls['date_completed']?.setValue(document['date_completed']);
-        this.updateForm.controls['category']?.setValue(document['category']['id']);
+        this.updateForm.controls['category']?.setValue(document['category']);
         this.updateForm.controls['type']?.setValue(document['type'] ? '1' : '0');
       },
       error => {
-
+        console.log(error);
       }
     )
   } // ngOnInit End
@@ -86,7 +89,58 @@ export class EditDocumentComponent implements OnInit {
 
   // Update document
   updateDocument() {
+    if(this.updateForm.get('attachment')?.value != '') {
+      // New attachment
+      const fd = new FormData();
+      fd.append('document_no', this.updateForm.get('document_no')?.value);
+      fd.append('barcode', this.updateForm.get('barcode')?.value);
+      fd.append('title', this.updateForm.get('title')?.value);
+      fd.append('date_completed', this.updateForm.get('date_completed')?.value);
+      fd.append('category', this.updateForm.get('category')?.value);
+      fd.append('type', this.updateForm.get('type')?.value);
+      fd.append('attachment', this.updateForm.get('attachment')?.value);
 
+      this.apiService.updateDocument(fd, this.id).subscribe(
+        response => {
+          Swal.fire({
+            title: 'Success!',
+            text: 'Successfully updated',
+            icon: 'success',
+          }).then(() => {
+            this.router.navigate(['/']);
+          })
+        },
+        error => console.log(error)
+      )
+    } else {
+      // Old attachment
+      const fd = new FormData();
+      fd.append('document_no', this.updateForm.get('document_no')?.value);
+      fd.append('barcode', this.updateForm.get('barcode')?.value);
+      fd.append('title', this.updateForm.get('title')?.value);
+      fd.append('date_completed', this.updateForm.get('date_completed')?.value);
+      fd.append('category', this.updateForm.get('category')?.value);
+      fd.append('type', this.updateForm.get('type')?.value);
+      
+      this.apiService.updateDocument(fd, this.id).subscribe(
+        response => {
+          Swal.fire({
+            title: 'Success!',
+            text: 'Successfully updated',
+            icon: 'success',
+          }).then(() => {
+            this.router.navigate(['/']);
+          })
+        },
+        error => {
+          Swal.fire({
+            title: 'Warning!',
+            text: 'Something went wrong, please call your system administrator.',
+            icon: 'warning',
+          })
+        }
+      )
+    }
   }
 
 }

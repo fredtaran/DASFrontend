@@ -63,13 +63,13 @@ export class AddDocumentComponent implements OnInit {
   saveDocument() {
     if(this.addForm.valid) {
       const fd = new FormData();
-      fd.append('document_no', this.addForm.get('document_no')?.value)
-      fd.append('barcode', this.addForm.get('barcode')?.value)
-      fd.append('title', this.addForm.get('title')?.value)
-      fd.append('date_completed', this.addForm.get('date_completed')?.value)
-      fd.append('category', this.addForm.get('category')?.value)
-      fd.append('type', this.addForm.get('type')?.value)
-      fd.append('attachment', this.addForm.get('attachment')?.value)
+      fd.append('document_no', this.addForm.get('document_no')?.value);
+      fd.append('barcode', this.addForm.get('barcode')?.value);
+      fd.append('title', this.addForm.get('title')?.value);
+      fd.append('date_completed', this.addForm.get('date_completed')?.value);
+      fd.append('category', this.addForm.get('category')?.value);
+      fd.append('type', this.addForm.get('type')?.value);
+      fd.append('attachment', this.addForm.get('attachment')?.value);
 
       this.apiService.saveDocument(fd).subscribe(
         data => {

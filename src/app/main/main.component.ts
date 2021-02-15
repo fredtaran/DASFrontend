@@ -42,7 +42,8 @@ export class MainComponent implements OnDestroy, OnInit {
     // Datatable options
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
+      pageLength: 10,
+      order: []
     };
 
     // Gather data from the database

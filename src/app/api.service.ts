@@ -8,6 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class ApiService {
 
   base_url = "http://127.0.0.1:8000/";
+
+  // Base header
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
   })
@@ -26,7 +28,7 @@ export class ApiService {
     })
   }
 
-  // Header with token
+  // Header for fileupload
   private authHeaderFileUpload() {
     let token = this.cookieService.get('my-token');
     return new HttpHeaders({
@@ -47,7 +49,7 @@ export class ApiService {
 
   // Save document
   saveDocument(docDetails: any) {
-    return this.httpClient.post<any>(`${this.base_url}api/add_document/`, docDetails, { headers: this.authHeaderFileUpload() })
+    return this.httpClient.post<any>(`${this.base_url}api/document/`, docDetails, { headers: this.authHeaderFileUpload() })
   }
 
   // Get documents
@@ -63,5 +65,10 @@ export class ApiService {
   // Get specific document
   getDocument(id: number, document_no: any) {
     return this.httpClient.get<any>(`${this.base_url}api/document/${id}/`, { headers: this.getAuthHeaders() });
+  }
+
+  // Update document
+  updateDocument(docDetails: any, id: number) {
+    return this.httpClient.put<any>(`${this.base_url}api/document/${id}/`, docDetails, { headers: this.authHeaderFileUpload() });
   }
 }

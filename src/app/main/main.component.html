@@ -15,8 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let doc of documents">
-                    <td>{{ doc['document_no'] }}</td>
+                <tr *ngFor="let doc of documents" class="text-center">
+                    <td><a href="{{ doc['attachment'] }}" target="_blank" style="font-weight: bold;">{{ doc['document_no'] }}</a></td>
                     <td>{{ doc['barcode'] }}</td>
                     <td>{{ doc['title'] }}</td>
                     <td>{{ doc['date_completed'] | date:'MM-dd-YYYY' }}</td>
