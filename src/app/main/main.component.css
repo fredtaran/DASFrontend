@@ -1,0 +1,15 @@
+.center {
+    margin: auto;
+    width: 50%;
+  }
+
+.logout {
+  border: 0;
+  background-color: transparent;
+}
+
+.logout:hover {
+    border-bottom: 5px crimson solid;
+    text-decoration: none;
+    border-radius: 5%;
+}
