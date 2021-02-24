@@ -29,8 +29,6 @@ export class AuthComponent implements OnInit {
     const myToken = this.cookieService.get('my-token');
     if(myToken) {
       this.router.navigate(['/dashboard']);
-    } else {
-      this.router.navigate(['/']);
     }
   }
 

@@ -1,24 +1,30 @@
 // Module
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthComponent } from './auth.component';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
+
+// Component
+import { FrontComponent } from './front.component';
 
 // Service
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
-  { path: 'login', component: AuthComponent }
-];
+  { path: '', component: FrontComponent }
+]
 
 @NgModule({
-  declarations: [AuthComponent],
+  declarations: [FrontComponent],
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
+    FontAwesomeModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    DataTablesModule
   ],
   exports: [
     RouterModule
@@ -28,4 +34,4 @@ const routes: Routes = [
     CookieService
   ]
 })
-export class AuthModule { }
+export class FrontModule { }

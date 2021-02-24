@@ -1,12 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { faPlusCircle, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../api.service';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { DataTableDirective } from 'angular-datatables';
-import { isEmptyObject } from 'jquery';
 
 @Component({
   selector: 'app-main',
@@ -14,10 +12,6 @@ import { isEmptyObject } from 'jquery';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnDestroy, OnInit {
-  displayToConsole(datatableElement: DataTableDirective): void {
-    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
-  }
-
   faPlusCircle = faPlusCircle;
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
@@ -105,6 +99,11 @@ export class MainComponent implements OnDestroy, OnInit {
         )
       }
     })
+  }
+
+  logout() {
+    this.cookieService.deleteAll();
+    this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {

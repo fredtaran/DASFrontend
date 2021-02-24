@@ -10,11 +10,11 @@ import { DataTablesModule } from 'angular-datatables';
 import { MainComponent } from './main.component';
 import { AddDocumentComponent } from './add-document/add-document.component';
 import { DetailDocumentComponent } from './detail-document/detail-document.component';
+import { EditDocumentComponent } from './edit-document/edit-document.component';
 
 // Service
 import { ApiService } from '../api.service';
 import { CookieService } from 'ngx-cookie-service';
-import { EditDocumentComponent } from './edit-document/edit-document.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: MainComponent },
@@ -24,7 +24,11 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [MainComponent, AddDocumentComponent, DetailDocumentComponent, EditDocumentComponent],
+  declarations: [
+    MainComponent, 
+    AddDocumentComponent, 
+    DetailDocumentComponent, 
+    EditDocumentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

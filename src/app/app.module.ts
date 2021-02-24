@@ -6,10 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthModule } from './auth/auth.module';
 import { MainModule } from './main/main.module';
+import { FrontModule } from './front/front.module';
 import { Routes, RouterModule } from '@angular/router';
 
 // Component
 import { AppComponent } from './app.component';
+
 
 // Routes
 const routes: Routes = [];
@@ -22,6 +24,7 @@ const routes: Routes = [];
     BrowserModule,
     AuthModule,
     MainModule,
+    FrontModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     HttpClientModule,
